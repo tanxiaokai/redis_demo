@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: io.github.tanxiaokai.test.MyBatisCacheSecondTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec <<< FAILURE!
+io.github.tanxiaokai.test.MyBatisCacheSecondTest.testCache2()  Time elapsed: 0.002 sec  <<< FAILURE!
+java.lang.NullPointerException
+	at io.github.tanxiaokai.test.MyBatisCacheSecondTest.testCache2(MyBatisCacheSecondTest.java:27)
+
