@@ -13,7 +13,7 @@ import io.github.tanxiaokai.model.Demo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:applicationContext.xml"})
-public class MyBatisCacheSecondTest {
+public class MyBatisL2CacheTest {
 
 	@Autowired
 	private DemoMapper demoMapper;
@@ -32,13 +32,14 @@ public class MyBatisCacheSecondTest {
 			e.printStackTrace();
 		}
 		
-	
+		Thread.sleep(5000);
 		Demo demo = new Demo();
 		demo.setCreateTime(new Date());
 		demo.setValue(this.getClass().getClassLoader().getResource("").getPath() + "----" + System.currentTimeMillis() );
 		
 		demoMapper.insertDemo(demo);
-		
+
+		Thread.sleep(5000);
 		System.out.println(demoMapper.listAll());
 	}
 

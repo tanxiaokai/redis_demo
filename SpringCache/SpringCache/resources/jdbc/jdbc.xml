@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:aop="http://www.springframework.org/schema/aop"   
+    xmlns:tx="http://www.springframework.org/schema/tx"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd  
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd  
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
+        default-lazy-init="false"> 
+    
+    
+ 	<!-- =========================dbcp 连接池 ========================= -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	    <property name="driverClassName" value="${jdbc.driverClassName}"></property>
+	    <property name="url" value="${jdbc.url}"></property>
+	    <property name="username" value="${jdbc.username}"></property>
+	    <property name="password" value="${jdbc.password}"></property>
+	    
+	    <!--initialSize: 初始化连接-->  
+		<property name="initialSize" value="1"></property> 
+	    
+	    <!--maxActive: 最大连接数量--> 
+		<property name="maxActive" value="5"></property>
+		
+		<!--minIdle: 最小空闲连接-->  
+		<property name="minIdle" value="1"></property> 
+		<!--maxIdle: 最大空闲连接-->
+	    <property name="maxIdle" value="5"></property>
+	    
+	    <!--maxWait: 超时等待时间以毫秒为单位 6000毫秒/1000等于60秒--> 
+	    <property name="maxWait" value="10000"></property>
+	    <property name="defaultAutoCommit" value="true"></property>
+	    
+	    <!--removeAbandonedTimeout: 超时时间(以秒数为单位)-->  
+	    <property name="removeAbandonedTimeout" value="600"></property>
+	    
+	    <!--removeAbandoned: 是否自动回收超时连接-->  
+	    <property name="removeAbandoned" value="true"></property>
+	    
+	    <!--connectionProperties：数据连接时属性  -->
+	    <property name="connectionProperties" value="remarks=true;"></property>
+	     
+		<!--用来验证从连接池取出的连接,在将连接返回给调用者之前-->
+		<property name="validationQuery" value="select 1 from dual"></property>  
+		<property name="testOnBorrow" value="true"></property>  
+	</bean>
+    
+    <!-- =======================数据库事务处理机制 ======================= -->
+    <tx:annotation-driven transaction-manager="transactionManager" />  
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">  
+        <property name="dataSource" ref="dataSource" />  
+    </bean>
+    
+    
+</beans>

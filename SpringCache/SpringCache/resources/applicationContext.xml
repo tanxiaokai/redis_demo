@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"    
+    xmlns:tx="http://www.springframework.org/schema/tx"  
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+	    http://www.springframework.org/schema/mvc
+         http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd"
+	default-lazy-init="false">
+    
+    
+    <!-- ==========扫描Spring注解，自动将对应的Bean加入Spring管理 =========== -->
+    <context:component-scan base-package="io.github.tanxiaokai" />
+    
+    <!-- =========================引入配置文件  ========================= -->
+    <bean id="propertyConfigurer"  class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:/jdbc/jdbc.properties</value>
+                <value>classpath:/redis/redis.properties</value>
+            </list>
+        </property>
+    </bean>
+    
+    <!-- =========================数据库配置 ========================= -->
+    <import resource="classpath*:/jdbc/jdbc.xml" />
+    
+    <!-- =========================redis配置 ========================= -->
+    <import resource="classpath*:/redis/redis.xml" />
+    
+    <!-- =========================mybatis配置 ========================= -->
+    <import resource="classpath*:/mybatis/spring-mybatis.xml" />
+   
+   
+   
+</beans>
