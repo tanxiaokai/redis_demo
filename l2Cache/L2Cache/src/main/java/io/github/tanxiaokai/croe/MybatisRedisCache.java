@@ -14,6 +14,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 
 public class MybatisRedisCache implements Cache{
+	
 	private static final Logger logger = LoggerFactory.getLogger(MybatisRedisCache.class);
 
 	@Autowired
@@ -35,7 +36,7 @@ public class MybatisRedisCache implements Cache{
 		if (id == null) {
 			throw new IllegalArgumentException("Cache instances require an ID");
 		}
-		System.out.println(">>>>>>>>> MybatisMybatisRedisCache:id=" + id);
+		logger.info(">>>>>>>>> MybatisMybatisRedisCache:id=" + id);
 		this.id = id;
 	}
 
@@ -59,7 +60,7 @@ public class MybatisRedisCache implements Cache{
 	}
 
 	public Object getObject(Object key) {
-		System.out.println(">>>>>>>>> getObject key=" + generateKey(key));
+		logger.info(">>>>>>>>> getObject key=" + generateKey(key));
 		Object result = redisTemplate.opsForValue().get(generateKey(key));
 		return result;
 	}
@@ -85,7 +86,7 @@ public class MybatisRedisCache implements Cache{
 	}
 
 	public void putObject(Object key, Object value) {
-		System.out.println(">>>>>>>>> putObject key=" + generateKey(key));
+		logger.info(">>>>>>>>> putObject key=" + generateKey(key));
 		redisTemplate.opsForValue().set(generateKey(key), value);
 	}
 
