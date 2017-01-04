@@ -41,6 +41,4 @@
     <!-- =========================mybatis配置 ========================= -->
     <import resource="classpath*:/mybatis/spring-mybatis.xml" />
    
-   
-   
 </beans>

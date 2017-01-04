@@ -19,7 +19,7 @@ public class DemoService {
 	@Autowired
 	private DemoMapper demoMapper;
 
-	@Cacheable(value="DemoService", keyGenerator="customKeyGenerator")
+	@Cacheable(value="DemoService")
 	public List<Demo> listAll() {
 		return demoMapper.listAll();
 	}
@@ -29,14 +29,14 @@ public class DemoService {
 		return demoMapper.findById(id);
 	}
 	
-	@CacheEvict(value = { "DemoService"}, allEntries = true)
+	@CacheEvict(value = "DemoService", allEntries = true)
 	public Demo addDemo(Demo demo) {
 		
 		demoMapper.insertDemo(demo);
 		return demo;
 	}
 
-	@CacheEvict(value = { "DemoService"}, allEntries = true)
+	@CacheEvict(value = "DemoService", allEntries = true)
 	public Boolean modifiedDemo(Integer id, String value) {
 		return demoMapper.updateDemo(id, value);
 	}

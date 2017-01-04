@@ -23,43 +23,47 @@ public class RedisSpringCacheTest {
 	 */
 	@Test
 	public void test() throws InterruptedException {
-		
-		Thread.sleep(1000);
-		System.out.println(">>LIST1>>>>> " + demoService.listAll());
-		
-		Thread.sleep(1000);
-		System.out.println(">>LIST2>>>>> " + demoService.listAll());
+
+		System.out.println("=== 第一次输出列表，不使用Cache ===");
+		Thread.sleep(2000);
+		demoService.listAll();
+
+		System.out.println("=== 第二次输出列表，使用Cache ===");
+		Thread.sleep(2000);
+		demoService.listAll();
 		
 
-		Thread.sleep(1000);
+		System.out.println("=== 插入新数据,清除Cache ===");
+		Thread.sleep(2000);
 		Demo demo = new Demo();
 		demo.setCreateTime(new Date());
 		demo.setValue(this.getClass().getClassLoader().getResource("").getPath() + "----" + System.currentTimeMillis() );
-		
-		System.out.println(">>ADD>>>>> " + demoService.addDemo(demo));
+		demoService.addDemo(demo);
 
-		Thread.sleep(1000);
+		
+		Thread.sleep(2000);
 		Demo demo2 = demoService.findById(demo.getId());
 		System.out.println(">>FIND - " + demo.getId() + " >>>>> " + demo2);
 
-		Thread.sleep(3000);
-		System.out.println(">>LIST3>>>>> " + demoService.listAll());
-
-		Thread.sleep(1000);
-		System.out.println(">>UPDATE>>>>> " + demoService.modifiedDemo(demo.getId(), "Modified --- " + demo.getValue()));
+		System.out.println("=== 第三次输出列表，不使用Cache ===");
+		Thread.sleep(2000);
+		demoService.listAll();
 		
-		Thread.sleep(1000);
+		System.out.println("=== 第四次输出列表，使用Cache ===");
+		Thread.sleep(2000);
+		demoService.listAll();
+
+		System.out.println("=== 更新数据,清除Cache ===");
+		Thread.sleep(2000);
+		demoService.modifiedDemo(demo.getId(), "Modified --- " + demo.getValue());
+		
+		Thread.sleep(2000);
 		demo2 = demoService.findById(demo.getId());
 		System.out.println(">>FIND - " + demo.getId() + " >>>>> " + demo2);
 		
-		Thread.sleep(3000);
-		System.out.println(">>LIST4>>>>> " + demoService.listAll());
+		Thread.sleep(1000);
+		System.out.println(">>DELETE>>>>> " + demoService.removeDemo(demo.getId()));
 
-		//Thread.sleep(1000);
-		//System.out.println(">>DELETE>>>>> " + demoService.removeDemo(demo.getId()));
-
-		Thread.sleep(3000);
-		System.out.println(">>LIST4>>>>> " + demoService.listAll());
 		
 	}
 
